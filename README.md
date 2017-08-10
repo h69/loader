@@ -1,6 +1,11 @@
 # MaterialLoader
 MaterialLoader是一个基于JavaScript Canvas的加载动画库，目前提供`HorizontalMaterialLoader`等。
 
+## Preview 
+* HorizontalMaterialLoader
+
+![HorizontalMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/horizontal.gif)
+
 ## Usage
 ```html
 <script src="./materialloader-horizontal.js"></script>
@@ -26,7 +31,7 @@ loader.start();
 
 ## API
 #### .init(option)
-初始化参数，其中option的结构如下：
+初始化参数（也可以不进行初始化，那么将使用默认参数），其中option的结构如下：
 ```javascript
 {
     staticCircleCount: 静态圆数量，默认为5
