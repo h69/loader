@@ -18,9 +18,9 @@ HorizontalMaterialLoader.prototype.init = function (option) {
     this._staticCircleRadius = parseFloat(option.staticCircleRadius) || 10;
     /** 获取option参数的静态圆半径变化比率，默认为0.4 */
     this._staticCircleRadiusScaleRate = parseFloat(option.staticCircleRadiusScaleRate) || 0.4;
-    /** 获取option参数的画笔的填充颜色，默认为白色 */
-    this._fillColor = option.fillColor || '#ffffff';
-    /** 获取option参数的动画持续时间，默认为2000ms */
+    /** 获取option参数的画笔的填充颜色，默认为'#4DB9FF' */
+    this._fillColor = option.fillColor || '#4DB9FF';
+    /** 获取option参数的动画持续时间（毫秒），默认为2000 */
     this._duration = parseInt(this._fps * (option.duration / 1000)) || this._fps * (2000 / 1000);
 
     /** 设置圆与圆之间的间隔距离 */
@@ -281,11 +281,7 @@ HorizontalMaterialLoader.prototype._validate = function (self) {
     this._interval = setInterval(function() {
         self._clean();
         self._onDraw();
-        try {
-            self._frame++;
-        } catch (e) {
-            self._frame = 0;
-        }
+        self._frame++;
     }, 1000 / self._fps);
 }
 

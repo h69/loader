@@ -19,7 +19,7 @@ MaterialLoader是一个基于JavaScript Canvas的加载动画库，目前提供`
 
 2. 在HTML页面中添加相对应的`canvas`标签：
 ```html
-<canvas id="canvas" style="background-color:#4DB9FF;"></canvas>
+<canvas id="canvas"></canvas>
 ```
 
 3. 编写JavaScript代码，创建实例后直接调用`start`函数即可：
@@ -37,8 +37,8 @@ loader.start();
     staticCircleCount: 静态圆数量，默认为5
     staticCircleRadius: 静态圆半径，默认为10
     staticCircleRadiusScaleRate: 静态圆半径变化比率，默认为0.4
-    fillColor: 圆的填充颜色，默认为白色
-    duration: 动画持续时间，默认为2000ms
+    fillColor: 圆的填充颜色，默认为'#4DB9FF'
+    duration: 动画持续时间（毫秒），默认为2000
 }
 
 ```
