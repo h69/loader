@@ -37,7 +37,7 @@ loader.start();
     staticCircleCount: 静态圆数量，默认为5
     staticCircleRadius: 静态圆半径，默认为10
     staticCircleRadiusScaleRate: 静态圆半径变化比率，默认为0.4
-    fillColor: 圆的填充颜色，默认为'#4DB9FF'
+    fillColor: 画笔填充颜色，默认为'#4DB9FF'
     duration: 动画持续时间（毫秒），默认为2000
 }
 
