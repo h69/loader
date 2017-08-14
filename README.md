@@ -30,8 +30,11 @@ loader.start();
 ```
 
 ## API
+#### HorizontalMaterialLoader(canvas) 
+创建实例，其中`canvas`是DOM对象。
+
 #### .init(option)
-初始化参数（也可以不进行初始化，那么将使用默认参数），其中option的结构如下：
+初始化参数（也可以不进行初始化，那么将使用默认参数），其中`option`的结构如下：
 ```javascript
 {
     staticCircleCount: 静态圆数量，默认为5
