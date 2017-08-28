@@ -54,10 +54,10 @@ loader.start();
 * RoundMaterialLoader
 ```javascript
 {
-    bigCircleRadius: 50,
-    staticCircleRadiusScaleRate: 0.4,
-    fillColor: '#4DB9FF',
-    duration: 2000
+    bigCircleRadius: 大圆半径，默认为50
+    staticCircleRadiusScaleRate: 静态圆半径变化比率，默认为0.4
+    fillColor: 画笔填充颜色，默认为'#4DB9FF'
+    duration: 动画持续时间（毫秒），默认为2000
 }
 ```
 
