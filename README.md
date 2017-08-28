@@ -3,12 +3,14 @@ MaterialLoader是一个基于JavaScript Canvas的加载动画库，目前提供`
 
 ## Preview 
 * HorizontalMaterialLoader
-
 ![HorizontalMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/materialloader-horizontal.gif)
+
+* RoundMaterialLoader
+![RoundMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/materialloader-round.gif)
 
 ## Usage
 ```html
-<script src="./materialloader-horizontal.js"></script>
+<script src="./materialloader-xxx.js"></script>
 ```
 
 ## Examples
@@ -30,7 +32,7 @@ loader.start();
 ```
 
 ## API
-#### HorizontalMaterialLoader(canvas) 
+#### XxxMaterialLoader(canvas) 
 创建实例，其中，`canvas`是DOM对象。
 
 #### .init(option)
