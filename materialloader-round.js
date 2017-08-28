@@ -1,7 +1,7 @@
 /**
- * 水平，一个球在几个球之间来回徘徊
+ * 圆形，一个球在几个球之间运动
  */
-function HorizontalMaterialLoader(canvas) {
+function RoundMaterialLoader(canvas) {
     this._canvas = canvas;
     this._context = this._canvas.getContext('2d');
     this._fps = 60;
@@ -11,11 +11,9 @@ function HorizontalMaterialLoader(canvas) {
 /**
  * 初始化
  */
-HorizontalMaterialLoader.prototype.init = function (option) {
-    /** 获取option参数的静态圆数量，默认为5 */
-    this._staticCircleCount = parseInt(option.staticCircleCount) || 5;
-    /** 获取option参数的静态圆半径，默认为10 */
-    this._staticCircleRadius = parseFloat(option.staticCircleRadius) || 10;
+RoundMaterialLoader.prototype.init = function (option) {
+    /** 获取option参数的静态圆半径，默认为50 */
+    this._bigCircleRadius = parseFloat(option.bigCircleRadius) || 50;
     /** 获取option参数的静态圆半径变化比率，默认为0.4 */
     this._staticCircleRadiusScaleRate = parseFloat(option.staticCircleRadiusScaleRate) || 0.4;
     /** 获取option参数的画笔的填充颜色，默认为'#4DB9FF' */
@@ -23,31 +21,37 @@ HorizontalMaterialLoader.prototype.init = function (option) {
     /** 获取option参数的动画持续时间（毫秒），默认为2000 */
     this._duration = parseInt(this._fps * (option.duration / 1000)) || this._fps * (2000 / 1000);
 
-    /** 设置圆与圆之间的间隔距离 */
-    this._divideWidth = this._staticCircleRadius * 3;
+    /** 静态圆数量*/
+    this._staticCircleCount = 8;
+    /** 静态圆半径 */
+    this._staticCircleRadius = this._bigCircleRadius / 5;
     /** 设置粘连体长度 */
-    this._adherentLength = this._staticCircleRadius * 3.5;
-    /** 设置画布宽度 */
-    this._canvas.width = (this._staticCircleCount + 1) * (this._staticCircleRadius * 2 + this._divideWidth);
-    /** 设置画布高度 */
-    this._canvas.height = 2 * this._staticCircleRadius * (1 + this._staticCircleRadiusScaleRate);
+    this._adherentLength = this._staticCircleRadius * 2.5;
+    /** 设置画布宽度、高度 */
+    this._canvas.width = this._canvas.height = 2 * (this._bigCircleRadius + this._staticCircleRadius * (1 + this._staticCircleRadiusScaleRate));
 
     /** 设置当前帧为0 */
     this._frame = 0;
 
+    /** 设置大圆参数 */
+    this._bigCircle = {};
+    this._bigCircle.r = this._bigCircleRadius;
+    this._bigCircle.x = this._canvas.width / 2;
+    this._bigCircle.y = this._canvas.height / 2;
+
     /** 设置动态圆参数 */
     this._dynamicCircle = {};
     this._dynamicCircle.r = this._staticCircleRadius * 3 / 4;
-    this._dynamicCircle.x = this._dynamicCircle.r;
-    this._dynamicCircle.y = this._canvas.height / 2;
+    this._dynamicCircle.x = this._bigCircle.x;
+    this._dynamicCircle.y = this._staticCircleRadius * (1 + this._staticCircleRadiusScaleRate);
     
     /** 设置静态圆参数 */
     this._staticCircles = [];
     for (var i = 0; i < this._staticCircleCount; i++) {
         var circle = {};
         circle.r = this._staticCircleRadius;
-        circle.x = (this._staticCircleRadius * 2 + this._divideWidth) * (i + 1);
-        circle.y = this._canvas.height / 2;
+        circle.x = this._bigCircle.x + this._bigCircle.r * Math.cos((45 * i) * Math.PI / 180);
+        circle.y = this._bigCircle.x + this._bigCircle.r * Math.sin((45 * i) * Math.PI / 180);
         this._staticCircles.push(circle);
     }
 
@@ -58,7 +62,7 @@ HorizontalMaterialLoader.prototype.init = function (option) {
 /**
  * 开始
  */
-HorizontalMaterialLoader.prototype.start = function () {
+RoundMaterialLoader.prototype.start = function () {
     this._invalidate();
     this._validate(this);
 }
@@ -66,26 +70,33 @@ HorizontalMaterialLoader.prototype.start = function () {
 /**
  * 停止
  */
-HorizontalMaterialLoader.prototype.stop = function () {
+RoundMaterialLoader.prototype.stop = function () {
     this._invalidate();
 }
 
 /**
  * 设置画笔
  */
-HorizontalMaterialLoader.prototype._setPaint = function (fillColor) {
+RoundMaterialLoader.prototype._setPaint = function (fillColor) {
     this._context.fillStyle = fillColor;
 }
 
 /**
  * 界面刷新的时候会进行回调
  */
-HorizontalMaterialLoader.prototype._onDraw = function () {
-    /** 获取动态圆此刻计算的x坐标 */
-    this._dynamicCircle.x2 = this._easeInOutSine(this._frame, this._dynamicCircle.x, this._canvas.width - this._dynamicCircle.r, this._duration);
-    
+RoundMaterialLoader.prototype._onDraw = function () {
+    /** 获取动态圆此刻计算的角度 */
+    if (this._frame > this._duration) {
+        this._frame = 0;
+    }
+    var degrees = this._easeInOutSine(this._frame, -90, 270, this._duration);
+
+    /** 计算动态圆坐标 */
+    this._dynamicCircle.x2 = this._bigCircle.x + this._bigCircle.r * Math.cos((degrees / 180) * Math.PI);
+    this._dynamicCircle.y2 = this._bigCircle.y + this._bigCircle.r * Math.sin((degrees / 180) * Math.PI);
+
     /** 绘制动态圆 */
-    this._drawCircle(this._dynamicCircle.x2, this._dynamicCircle.y, this._dynamicCircle.r);
+    this._drawCircle(this._dynamicCircle.x2, this._dynamicCircle.y2, this._dynamicCircle.r);
 
     /** 绘制静态圆 */
     for (var i = 0; i < this._staticCircles.length; i++) {
@@ -95,7 +106,7 @@ HorizontalMaterialLoader.prototype._onDraw = function () {
         if (this._adherentBodyEnable(staticCircle)) {
             this._drawCircle(staticCircle.x, staticCircle.y, staticCircle.r2);
             this._drawAdherentBody(staticCircle.x, staticCircle.y, staticCircle.r2, 45,
-                this._dynamicCircle.x2, this._dynamicCircle.y, this._dynamicCircle.r, 45);
+                this._dynamicCircle.x2, this._dynamicCircle.y2, this._dynamicCircle.r, 45);
 
         } else {
             this._drawCircle(staticCircle.x, staticCircle.y, staticCircle.r);
@@ -106,7 +117,7 @@ HorizontalMaterialLoader.prototype._onDraw = function () {
 /**
  * 绘制圆形
  */
-HorizontalMaterialLoader.prototype._drawCircle = function (x, y, r) {
+RoundMaterialLoader.prototype._drawCircle = function (x, y, r) {
     this._context.beginPath();
     this._context.arc(x, y, r, 0, Math.PI * 2);
     this._context.fill();
@@ -116,10 +127,9 @@ HorizontalMaterialLoader.prototype._drawCircle = function (x, y, r) {
 /**
  * 判断是否允许绘制粘连体
  */
-HorizontalMaterialLoader.prototype._adherentBodyEnable = function (staticCircle) {
-        
+RoundMaterialLoader.prototype._adherentBodyEnable = function (staticCircle) {
     /** 勾股定理计算静态圆与动态圆之间的圆心距离 */
-    var distance = Math.sqrt(Math.pow(this._dynamicCircle.x2 - staticCircle.x, 2) + Math.pow(this._dynamicCircle.y - staticCircle.y, 2));
+    var distance = Math.sqrt(Math.pow(this._dynamicCircle.x2 - staticCircle.x, 2) + Math.pow(this._dynamicCircle.y2 - staticCircle.y, 2));
     
     /** 计算静态圆的半径变化*/
     var scale = this._staticCircleRadiusScaleRate -  this._staticCircleRadiusScaleRate * (distance / this._adherentLength);
@@ -135,16 +145,18 @@ HorizontalMaterialLoader.prototype._adherentBodyEnable = function (staticCircle)
 /**
  * 先加速后减速的正弦缓动函数
  */
-HorizontalMaterialLoader.prototype._easeInOutSine =  function (time, startValue, endValue, duration) {
+RoundMaterialLoader.prototype._easeInOutSine =  function (time, startValue, endValue, duration) {
     return startValue + (1 - Math.cos(Math.PI * time / duration)) * ((endValue - startValue) / 2);
 }
 
 /**
  * 利用贝塞尔曲线绘制粘连体
  */
-HorizontalMaterialLoader.prototype._drawAdherentBody = function (cx1, cy1, cr1, offset1, cx2, cy2, cr2, offset2) {
+RoundMaterialLoader.prototype._drawAdherentBody = function (cx1, cy1, cr1, offset1, cx2, cy2, cr2, offset2) {
     /** 求三角函数 */
     var degrees = (Math.atan(Math.abs(cy2 - cy1) / Math.abs(cx2 - cx1))) * 180 / Math.PI;
+
+    console.log(degrees);
     
     /** 计算圆1与圆2之间的圆心距离 */
     var differenceX = cx1 - cx2;
@@ -276,7 +288,7 @@ HorizontalMaterialLoader.prototype._drawAdherentBody = function (cx1, cy1, cr1, 
 /**
  * 绘制
  */
-HorizontalMaterialLoader.prototype._validate = function (self) {
+RoundMaterialLoader.prototype._validate = function (self) {
     this._frame = 0;
     this._interval = setInterval(function () {
         self._clean();
@@ -288,7 +300,7 @@ HorizontalMaterialLoader.prototype._validate = function (self) {
 /**
  * 不绘制
  */
-HorizontalMaterialLoader.prototype._invalidate = function () {
+RoundMaterialLoader.prototype._invalidate = function () {
     clearInterval(this._interval);
     this._clean();
     this._frame = 0;
@@ -297,7 +309,7 @@ HorizontalMaterialLoader.prototype._invalidate = function () {
 /**
  * 擦除画布
  */
-HorizontalMaterialLoader.prototype._clean = function () {
+RoundMaterialLoader.prototype._clean = function () {
     this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
 }
 
