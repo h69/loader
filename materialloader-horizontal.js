@@ -117,7 +117,6 @@ HorizontalMaterialLoader.prototype._drawCircle = function (x, y, r) {
  * 判断是否允许绘制粘连体
  */
 HorizontalMaterialLoader.prototype._adherentBodyEnable = function (staticCircle) {
-        
     /** 勾股定理计算静态圆与动态圆之间的圆心距离 */
     var distance = Math.sqrt(Math.pow(this._dynamicCircle.x2 - staticCircle.x, 2) + Math.pow(this._dynamicCircle.y - staticCircle.y, 2));
     

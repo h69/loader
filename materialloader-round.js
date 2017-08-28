@@ -155,8 +155,6 @@ RoundMaterialLoader.prototype._easeInOutSine =  function (time, startValue, endV
 RoundMaterialLoader.prototype._drawAdherentBody = function (cx1, cy1, cr1, offset1, cx2, cy2, cr2, offset2) {
     /** 求三角函数 */
     var degrees = (Math.atan(Math.abs(cy2 - cy1) / Math.abs(cx2 - cx1))) * 180 / Math.PI;
-
-    console.log(degrees);
     
     /** 计算圆1与圆2之间的圆心距离 */
     var differenceX = cx1 - cx2;
