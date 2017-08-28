@@ -1,5 +1,5 @@
 # MaterialLoader
-MaterialLoader是一个基于JavaScript Canvas的加载动画库，目前提供`HorizontalMaterialLoader`等。
+MaterialLoader是一个基于JavaScript Canvas的加载动画库，目前提供`HorizontalMaterialLoader`、`RoundMaterialLoader`等。
 
 ## Preview 
 * HorizontalMaterialLoader
