@@ -39,6 +39,8 @@ loader.start();
 
 #### .init(option)
 初始化参数（也可以不进行初始化，那么将使用默认参数），其中，`option`的结构如下：
+
+* HorizontalMaterialLoader
 ```javascript
 {
     staticCircleCount: 静态圆数量，默认为5
@@ -47,7 +49,16 @@ loader.start();
     fillColor: 画笔填充颜色，默认为'#4DB9FF'
     duration: 动画持续时间（毫秒），默认为2000
 }
+```
 
+* RoundMaterialLoader
+```javascript
+{
+    bigCircleRadius: 50,
+    staticCircleRadiusScaleRate: 0.4,
+    fillColor: '#4DB9FF',
+    duration: 2000
+}
 ```
 
 #### .start() 
