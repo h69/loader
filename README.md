@@ -1,7 +1,7 @@
 # materialloader
-materialloader 是一个基于 JavaScript canvas 的加载动画库，目前提供`HorizontalMaterialLoader`、`RoundMaterialLoader`等。
+JavaScript loading animation. 
 
-## 预览 
+## Preview 
 * HorizontalMaterialLoader
 
 ![HorizontalMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/materialloader-horizontal.gif)
@@ -10,59 +10,56 @@ materialloader 是一个基于 JavaScript canvas 的加载动画库，目前提�
 
 ![RoundMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/materialloader-round.gif)
 
-## 起步
+## Usage
 ```html
 <script src="./materialloader-xxx.js"></script>
 ```
 
-## 范例
-1. 引入JavaScript文件：
+## Examples
+1. Create a HTML file and include with:
 ```html
 <script src="./materialloader-horizontal.js"></script>
 ```
 
-2. 在HTML页面中添加相对应的`canvas`标签：
+2. Create a HTML tag `canvas`：
 ```html
 <canvas id="canvas"></canvas>
 ```
 
-3. 编写JavaScript代码，创建实例后直接调用`start`函数即可：
+3. Instantiate the JavaScript object and call function `start`:
 ```javascript
 var loader = new HorizontalMaterialLoader(document.getElementById('canvas'));
 
 loader.start();
 ```
 
-## 方法
-#### XxxMaterialLoader(canvas) 
-创建实例，其中，`canvas`是DOM对象。
-
+## API
 #### .init(option)
-初始化参数（也可以不进行初始化，那么将使用默认参数），其中，`option`的结构如下：
+Initialize the animation optionally, and the `option` is as follows:
 
 * HorizontalMaterialLoader
-```javascript
+```
 {
-    staticCircleCount: 静态圆数量，默认为5
-    staticCircleRadius: 静态圆半径，默认为10
-    staticCircleRadiusScaleRate: 静态圆半径变化比率，默认为0.4
-    fillColor: 画笔填充颜色，默认为'#4DB9FF'
-    duration: 动画持续时间（毫秒），默认为2000
+  staticCircleCount: (default: 5),
+  staticCircleRadius: (default: 10),
+  staticCircleRadiusScaleRate: (default: 0.4),
+  fillColor: '(default: #4DB9FF)',
+  duration: (default: 2000),
 }
 ```
 
 * RoundMaterialLoader
-```javascript
+```
 {
-    bigCircleRadius: 大圆半径，默认为50
-    staticCircleRadiusScaleRate: 静态圆半径变化比率，默认为0.4
-    fillColor: 画笔填充颜色，默认为'#4DB9FF'
-    duration: 动画持续时间（毫秒），默认为2000
+  bigCircleRadius: (default: 50),
+  staticCircleRadiusScaleRate: (default: 0.4),
+  fillColor: '(default: #4DB9FF)',
+  duration: (default: 2000),
 }
 ```
 
 #### .start() 
-开始动画。
+Start animation.
 
 #### .stop() 
-停止动画。
+Stop animation.
