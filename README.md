@@ -1,34 +1,34 @@
-# materialloader
+# loader
 JavaScript loading animation. 
 
 ## Preview 
-* HorizontalMaterialLoader
+* HorizontalLoader
 
-![HorizontalMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/materialloader-horizontal.gif)
+![HorizontalLoader](./screenshot/loader-horizontal.gif)
 
-* RoundMaterialLoader
+* RoundLoader
 
-![RoundMaterialLoader](https://github.com/adamearthhuang/MaterialLoader/blob/master/screenshot/materialloader-round.gif)
+![RoundLoader](./screenshot/loader-round.gif)
 
 ## Usage
 ```html
-<script src="./materialloader-xxx.js"></script>
+<script src="./loader-xxx.js"></script>
 ```
 
 ## Examples
 1. Create a HTML file and include with:
 ```html
-<script src="./materialloader-horizontal.js"></script>
+<script src="./loader-horizontal.js"></script>
 ```
 
 2. Create a HTML tag `canvas`：
 ```html
-<canvas id="canvas"></canvas>
+<canvas id="loader"></canvas>
 ```
 
 3. Instantiate the JavaScript object and call function `start`:
 ```javascript
-var loader = new HorizontalMaterialLoader(document.getElementById('canvas'));
+var loader = new HorizontalLoader(document.getElementById('loader'));
 
 loader.start();
 ```
@@ -37,7 +37,7 @@ loader.start();
 #### .init(option)
 Initialize the animation optionally, and the `option` is as follows:
 
-* HorizontalMaterialLoader
+* HorizontalLoader
 ```
 {
   staticCircleCount: (default: 5),
@@ -48,7 +48,7 @@ Initialize the animation optionally, and the `option` is as follows:
 }
 ```
 
-* RoundMaterialLoader
+* RoundLoader
 ```
 {
   bigCircleRadius: (default: 50),
